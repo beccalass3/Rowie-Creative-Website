@@ -7,14 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --sky: #cce4f0;
-      --sky-light: #e8f4fb;
-      --sky-deep: #a8cfe0;
+      --sky: #b8dff5;
+      --sky-light: #eaf6fd;
+      --sky-deep: #7ec0e0;
       --white: #ffffff;
-      --navy: #1a3a4a;
-      --ink: #2c4a5a;
-      --muted: #6a8a9a;
-      --accent: #4a9abf;
+      --navy: #2c4a68;
+      --ink: #3d5870;
+      --muted: #7a98ae;
+      --accent: #f07a55;
+      --sunset: #f9b98a;
+      --sunset-light: #fde8d8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -182,7 +184,7 @@
 
     /* VIEWS BAND */
     .views-band {
-      background: var(--navy);
+      background: linear-gradient(135deg, #7ec0e0 0%, #b8dff5 40%, #f9c4a8 100%);
       padding: 72px 60px;
       text-align: center;
     }
@@ -191,14 +193,14 @@
       font-weight: 600;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--sky);
+      color: var(--navy);
       margin-bottom: 16px;
     }
     .views-number {
       font-family: 'Playfair Display', serif;
       font-size: clamp(72px, 12vw, 140px);
       font-weight: 700;
-      color: var(--white);
+      color: var(--navy);
       line-height: 1;
       letter-spacing: -4px;
       margin-bottom: 16px;
@@ -206,7 +208,7 @@
     .views-sub {
       font-size: 17px;
       font-weight: 300;
-      color: rgba(255,255,255,0.6);
+      color: var(--ink);
     }
 
     /* ABOUT */
@@ -275,7 +277,7 @@
 
     /* WHY ROWIE — combined section on light bg */
     .why {
-      background: var(--navy);
+      background: linear-gradient(135deg, #2c4a68 0%, #3a5878 60%, #6a4a50 100%);
       padding: 90px 60px;
     }
     .why .inner { max-width: 1200px; margin: 0 auto; }
@@ -539,7 +541,7 @@
 
     /* FOOTER */
     footer {
-      background: #0f2535;
+      background: #1d3a52;
       padding: 36px 60px;
       display: flex;
       justify-content: space-between;

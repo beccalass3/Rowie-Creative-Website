@@ -180,6 +180,35 @@
     }
     .tagline-band strong { font-weight: 600; font-style: normal; color: var(--navy); }
 
+    /* VIEWS BAND */
+    .views-band {
+      background: var(--navy);
+      padding: 72px 60px;
+      text-align: center;
+    }
+    .views-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 16px;
+    }
+    .views-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 12vw, 140px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: -4px;
+      margin-bottom: 16px;
+    }
+    .views-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+    }
+
     /* ABOUT */
     .about {
       padding: 90px 60px;
@@ -601,6 +630,13 @@
   <p><strong>Bringing corporate expertise</strong> into the hands of everyday brands.</p>
 </div>
 
+<!-- VIEWS BAND -->
+<div class="views-band">
+  <div class="views-label">Content We've Created for Brands</div>
+  <div class="views-number" id="viewsCounter">0</div>
+  <div class="views-sub">views and counting</div>
+</div>
+
 <!-- ABOUT -->
 <section class="about" id="about">
   <div>
@@ -758,6 +794,42 @@
     document.getElementById('contactForm').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   }
+
+  // Views counter animation
+  (function() {
+    const el = document.getElementById('viewsCounter');
+    const target = 1000000000;
+    const duration = 2000;
+    let started = false;
+
+    function formatCount(n) {
+      if (n >= 1000000000) return '1B+';
+      if (n >= 1000000) return Math.floor(n / 1000000) + 'M+';
+      if (n >= 1000) return Math.floor(n / 1000) + 'K+';
+      return n.toString();
+    }
+
+    function runCounter() {
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatCount(Math.floor(eased * target));
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    const observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !started) {
+        started = true;
+        runCounter();
+      }
+    }, { threshold: 0.3 });
+
+    observer.observe(el);
+  })();
 </script>
 </body>
 </html>

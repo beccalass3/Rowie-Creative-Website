@@ -930,8 +930,12 @@
   function submitForm(e) {
     e.preventDefault();
     var form = document.getElementById('contactForm');
-    var data = new FormData(form);
-    fetch('/', { method: 'POST', body: data })
+    var data = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data
+    })
       .then(function() {
         form.style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';

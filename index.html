@@ -27,7 +27,11 @@
       overflow-x: hidden;
     }
 
-    /* CUSTOM CURSOR */
+    /* CUSTOM CURSOR - desktop only */
+    @media (hover: none) {
+      #cursor-dot, #cursor-ring { display: none !important; }
+      * { cursor: auto !important; }
+    }
     #cursor-dot {
       width: 8px; height: 8px;
       background: #5dd8d4;
@@ -1038,16 +1042,18 @@
 <script>
   const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
-  document.addEventListener('mousemove', e => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-    ring.style.left = e.clientX + 'px';
-    ring.style.top = e.clientY + 'px';
-  });
-  document.querySelectorAll('a, button, .service-item, .stat, .why-card').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.addEventListener('mousemove', e => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .service-item, .stat, .why-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+  }
 </script>
 </body>
 </html>

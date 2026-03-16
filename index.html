@@ -18,13 +18,39 @@
       --sunset: #6dd0cc;
       --sunset-light: #e0f5f4;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--ink);
       overflow-x: hidden;
     }
+
+    /* CUSTOM CURSOR */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: #5dd8d4;
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(93,216,212,0.6);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+    }
+    body.cursor-hover #cursor-dot { width: 12px; height: 12px; background: var(--navy); }
+    body.cursor-hover #cursor-ring { width: 50px; height: 50px; border-color: rgba(93,216,212,0.9); }
 
     /* NAV */
     nav {
@@ -438,7 +464,7 @@
     .service-item {
       padding: 26px;
       border-radius: 14px;
-      border: 1.5px solid var(--sky);
+      border: 1.5px solid #5dd8d4;
       background: var(--white);
       transition: all 0.3s;
       position: relative;
@@ -980,6 +1006,22 @@
 
     observer.observe(el);
   })();
+</script>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<script>
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  document.addEventListener('mousemove', e => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .service-item, .stat, .why-card').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
 </script>
 </body>
 </html>

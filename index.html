@@ -385,9 +385,8 @@
           <span>San Diego, CA</span>
         </div>
       </div>
-    <form name="contact" method="POST">
-<input type="hidden" name="access_key" value="fd552af8-5acf-4db5-92f1-1f655ad2d8fa>
-
+      <form id="contact-form" class="contact-form fade-in" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <input type="hidden" name="access_key" value="fd552af8-5acf-4db5-92f1-1f655ad2d8fa" />
         <div class="form-group"><label>Name</label><input type="text" name="name" placeholder="Your name" required /></div>
         <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required /></div>
         <div class="form-group">
@@ -459,7 +458,7 @@
     if (contactForm) {
       const submitButton = contactForm.querySelector('.btn-submit');
       const feedback = contactForm.querySelector('.form-feedback');
-      contactForm.addEventListener('submit', (event) => {
+      contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (!contactForm.checkValidity()) {
           contactForm.reportValidity();
@@ -472,14 +471,30 @@
         if (feedback) {
           feedback.textContent = '';
         }
-        setTimeout(() => {
-          if (submitButton) {
-            submitButton.textContent = 'Sent';
+        try {
+          const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+          });
+          if (!response.ok) {
+            throw new Error('Failed to submit');
           }
           if (feedback) {
             feedback.textContent = 'Thanks! Your message is sent — we’ll follow up soon.';
           }
-        }, 700);
+          if (submitButton) {
+            submitButton.textContent = 'Sent';
+          }
+          contactForm.reset();
+        } catch (error) {
+          if (feedback) {
+            feedback.textContent = 'Oops! Something went wrong. Please try again.';
+          }
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit';
+          }
+        }
       });
     }
   </script>

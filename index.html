@@ -306,10 +306,10 @@
         <div class="about-text fade-in">
 <div class="big-heading">ABOUT<br>US</div>
           <p>
-            Born and raised in San Diego, we moved back home after years working in
-            Los Angeles at major media companies. Now, we're passionate about helping
-            local businesses grow by sharing their story in authentic, effective ways
-            that resonate with the right people.
+            After years working in Los Angeles at major media companies, we brought that
+            experience back home to San Diego with a passion for helping local businesses
+            grow. We believe every brand has a story worth telling, and we help share it
+            in authentic, effective ways that connect with the right audiences.
           </p>
         </div>
         <div></div>
@@ -352,7 +352,7 @@
           <div class="service-item fade-in"><span class="service-name">Brand Comms Strategy</span></div>
           <div class="service-item fade-in"><span class="service-name">Brand Identity &amp; Pitch Decks</span></div>
           <div class="service-item fade-in"><span class="service-name">Newsletter Creation</span></div>
-          <div class="service-item fade-in"><span class="service-name">Sales Collateral</span></div>
+          <div class="service-item fade-in"><span class="service-name">Sales Marketing Materials</span></div>
         </div>
       </div>
     </div>
@@ -394,7 +394,7 @@
             <option>Brand Comms Strategy</option>
             <option>Brand Identity &amp; Pitch Decks</option>
             <option>Newsletter Creation</option>
-            <option>Sales Collateral</option>
+            <option>Sales Marketing Materials</option>
             <option>Not sure yet, let's chat</option>
           </select>
         </div>
@@ -431,14 +431,14 @@
     }, { threshold: 0.12 });
     faders.forEach(el => observer.observe(el));
     const counter = document.getElementById('view-counter');
-    const target = 10000000;
+    const target = 1000000000;
     let current = 0;
     const step = Math.ceil(target / 80);
     const counterObs = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         const interval = setInterval(() => {
           current = Math.min(current + step, target);
-          counter.textContent = current.toLocaleString() + '+';
+          counter.textContent = current >= target ? '1B+' : current.toLocaleString() + '+';
           if (current >= target) clearInterval(interval);
         }, 20);
         counterObs.unobserve(counter);
